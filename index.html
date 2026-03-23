@@ -2,87 +2,119 @@
 <html lang="ta">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uzhavan | Agricultural Solutions</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        :root { --primary: #2d6a4f; --light-green: #d8f3dc; --white: #ffffff; --dark-text: #1b4332; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--white); color: var(--dark-text); overflow-x: hidden; width: 100%; }
+        /* --- SMOOTH SCROLL BASE --- */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        :root {
+            --primary: #2d6a4f;
+            --light-green: #d8f3dc;
+            --white: #ffffff;
+            --dark-text: #1b4332;
+        }
 
-        /* --- MOBILE-FRIENDLY NAVIGATION --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Arial', sans-serif; }
+        body { background-color: var(--white); color: var(--dark-text); overflow-x: hidden; }
+
+        /* --- NAVIGATION (Mobile Responsive) --- */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 5%; background: white; position: sticky; top: 0; z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 100%;
+            padding: 15px 5%; background: rgba(255, 255, 255, 0.95);
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-        .logo-container { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-        .logo-icon { width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; justify-content: center; align-items: center; }
-        .logo-main { font-size: 1.1rem; font-weight: 600; color: var(--primary); }
-        .logo-sub { display: none; } /* Hide sub-text on mobile to save space */
-        nav ul { display: none; } /* Simplified for Hackathon demo - focus on content */
+        .logo { font-size: 1.5rem; font-weight: 600; color: var(--primary); letter-spacing: 2px; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { text-decoration: none; color: var(--dark-text); font-size: 0.85rem; font-weight: 500; cursor: pointer; white-space: nowrap; }
 
-        /* --- HERO SECTION --- */
+        @media (max-width: 850px) {
+            nav { flex-direction: column; gap: 12px; padding: 15px 2%; }
+            nav ul { overflow-x: auto; width: 100%; padding: 5px 10px; justify-content: flex-start; -webkit-overflow-scrolling: touch; }
+            nav ul li { margin-left: 0; margin-right: 20px; }
+        }
+
+        /* --- HERO --- */
         .hero {
-            height: 60vh; display: flex; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://plus.unsplash.com/premium_photo-1674019234994-eceabbdd091d?q=80&w=1074&auto=format&fit=crop');
-            background-size: cover; background-position: center; color: white; padding: 20px;
+            height: 75vh; display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://plus.unsplash.com/premium_photo-1674019234994-eceabbdd091d?q=80&w=1074&auto=format&fit=crop');
+            background-size: cover; background-position: center; color: white; padding: 0 20px;
         }
-        .hero .tamil-main { font-size: 1.8rem; font-weight: 600; color: #9dffb0; line-height: 1.2; }
-        .hero h1 { font-size: 1.2rem; opacity: 0.9; margin-top: 10px; }
+        .hero .tamil-main { font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 600; color: #9dffb0; margin-bottom: 10px; }
+        #heroEng { font-size: clamp(1rem, 3vw, 1.8rem); opacity: 0.9; }
 
-        /* --- SECTION BOXES --- */
-        .section-padding { padding: 40px 5%; text-align: center; }
-        .section-label { background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; margin-bottom: 15px; display: inline-block; }
+        /* --- SECTIONS & LABELS --- */
+        .section-padding { padding: 60px 8%; text-align: center; }
+        .section-label { display: inline-block; background-color: var(--primary); color: white; padding: 8px 25px; border-radius: 50px; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 20px; }
 
-        /* --- FIXED GRID (NO MORE OVERFLOW) --- */
+        /* --- COMMON PROBLEMS GRID --- */
         .grid { 
             display: grid; 
-            grid-template-columns: 1fr; /* Single column on mobile */
-            gap: 15px; 
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 20px; margin-top: 40px; text-align: left; 
         }
-        @media (min-width: 600px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1000px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-
-        .card { 
-            background: var(--light-green); padding: 20px; border-radius: 15px; 
-            text-align: left; border: 1px solid rgba(45, 106, 79, 0.1);
-            word-wrap: break-word; overflow: hidden;
-        }
-        .card .tamil-text { font-size: 1.1rem; font-weight: 600; display: block; margin-bottom: 5px; }
-        .card h3 { font-size: 0.8rem; color: var(--primary); text-transform: uppercase; }
-        .card .click-hint { font-size: 0.7rem; margin-top: 10px; display: block; color: var(--primary); font-weight: 600; }
-
-        /* --- SEARCH BOX --- */
-        .search-container { background: #f1f8f4; border-radius: 25px; padding: 30px 15px; border: 2px dashed var(--primary); }
-        .search-bar { 
-            display: flex; flex-direction: column; gap: 10px; background: transparent; box-shadow: none; 
-        }
-        .search-bar input { 
-            width: 100%; padding: 15px; border-radius: 30px; border: 1px solid #ccc; font-size: 1rem;
-        }
-        .search-bar button { 
-            width: 100%; padding: 15px; border-radius: 30px; background: var(--primary); color: white; font-weight: 600; border: none;
-        }
-
-        /* --- POPUP MODAL (FIXED FOR MOBILE) --- */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); padding: 20px; }
-        .modal-content { 
-            background: white; padding: 25px; border-radius: 20px; width: 100%; 
-            max-width: 500px; margin: 10% auto; position: relative; 
-            max-height: 80vh; overflow-y: auto;
-        }
-        .close { position: absolute; right: 20px; top: 10px; font-size: 30px; color: var(--primary); cursor: pointer; }
-        .modal-title { font-size: 1.2rem; color: var(--primary); margin-bottom: 15px; padding-right: 30px; }
-        .modal-body { font-size: 0.95rem; line-height: 1.6; }
-
-        /* --- CONTACT --- */
-        .opinion-box { background: var(--dark-text); color: white; padding: 25px; border-radius: 25px; margin-top: 20px; }
-        textarea { width: 100%; height: 100px; border-radius: 15px; padding: 15px; margin: 15px 0; border: none; }
         
-        footer { padding: 30px; font-size: 0.8rem; opacity: 0.6; text-align: center; }
+        .card { 
+            background: var(--light-green); 
+            padding: 25px; border-radius: 20px; border: 1px solid rgba(45, 106, 79, 0.1); 
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); 
+            cursor: pointer;
+        }
+        .card:hover { 
+            transform: translateY(-10px); 
+            background: #b7e4c7; 
+            box-shadow: 0 15px 30px rgba(27, 67, 50, 0.15); 
+            border-color: var(--primary);
+        }
+        .card .tamil-text { font-size: 1.25rem; color: var(--dark-text); font-weight: 600; display: block; }
+        .card h3 { font-size: 0.85rem; color: var(--primary); opacity: 0.7; margin-bottom: 10px; text-transform: uppercase; }
+        .card p { font-size: 0.9rem; line-height: 1.5; color: var(--dark-text); margin-bottom: 10px; }
+        .card .click-hint { font-size: 0.75rem; color: var(--primary); font-weight: 600; opacity: 0.8; }
+
+        /* --- POPUP MODAL --- */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); overflow-y: auto; }
+        .modal-content { background-color: white; margin: 10% auto; padding: 30px; border-radius: 30px; width: 90%; max-width: 600px; position: relative; animation: modalSlide 0.4s ease; }
+        @keyframes modalSlide { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close { position: absolute; right: 25px; top: 20px; font-size: 28px; cursor: pointer; color: var(--primary); }
+        .modal-title { color: var(--primary); margin-bottom: 20px; border-bottom: 2px solid var(--light-green); padding-bottom: 10px; font-size: 1.3rem; }
+
+        /* --- SEARCH SECTION --- */
+        .search-container { background: #f1f8f4; border-radius: 40px; padding: 40px 20px; text-align: center; border: 2px dashed var(--primary); }
+        .search-bar { 
+            display: flex; max-width: 650px; margin: 30px auto; background: white; 
+            padding: 8px; border-radius: 50px; box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease; border: 2px solid transparent;
+        }
+        .search-bar input { flex: 1; border: none; padding: 12px 20px; border-radius: 50px; outline: none; font-size: 1rem; background: transparent; width: 100%; }
+        .search-bar button { background: var(--primary); color: white; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: 600; }
+
+        @media (max-width: 480px) {
+            .search-bar { flex-direction: column; background: transparent; box-shadow: none; gap: 10px; padding: 0; }
+            .search-bar input { background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+            .search-bar button { border-radius: 15px; width: 100%; padding: 15px; }
+        }
+
+        /* --- FLEX LAYOUTS (About & Contact) --- */
+        .flex-row { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; text-align: left; }
+        .flex-item { flex: 1; min-width: 300px; }
+
+        /* --- CONTACT & OPINION --- */
+        .opinion-box { background: var(--dark-text); color: white; padding: 35px; border-radius: 35px; width: 100%; }
+        textarea { width: 100%; height: 140px; border-radius: 20px; padding: 20px; border: none; margin: 20px 0; outline: none; background: rgba(255,255,255,0.15); color: white; resize: none; font-size: 1rem; }
+        .submit-btn { background: #9dffb0; color: var(--dark-text); border: none; padding: 15px 40px; border-radius: 12px; cursor: pointer; font-weight: 600; transition: 0.3s; width: 100%; }
+        .submit-btn:hover { background: #76e88d; }
+        
+        .admin-trigger { display: block; margin-top: 30px; font-size: 0.7rem; opacity: 0.3; cursor: pointer; text-decoration: underline; }
+
+        /* --- REVEAL ANIMATION --- */
+        .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        footer { text-align: center; padding: 40px 20px; opacity: 0.7; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -95,104 +127,160 @@
     </div>
 
     <nav>
-        <div class="logo-container">
-            <div class="logo-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C12 2 14 6 19 8C19 8 16 10 12 10C12 10 8 10 5 8C5 8 10 6 12 2Z" fill="#9dffb0"/>
-                    <path d="M12 10V22M12 22L8 18M12 22L16 18" stroke="#9dffb0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-            <span class="logo-main">UZHAVAN</span>
-        </div>
-        <span style="font-size: 0.7rem; font-weight: 600; color: var(--primary);">AGRI-TECH</span>
+        <div class="logo">UZHAVAN</div>
+        <ul>
+            <li><a onclick="lenis.scrollTo('#home')">முகப்பு (Home)</a></li>
+            <li><a onclick="lenis.scrollTo('#problems')">சிக்கல்கள் (Problems)</a></li>
+            <li><a onclick="lenis.scrollTo('#search')">தேடல் (Search)</a></li>
+            <li><a onclick="lenis.scrollTo('#about')">பற்றி (About)</a></li>
+            <li><a onclick="lenis.scrollTo('#contact')">தொடர்பு (Contact)</a></li>
+        </ul>
     </nav>
 
-    <section class="hero">
-        <h2 class="tamil-main">விவசாய தீர்வுகளுக்கான தளம்</h2>
-        <h1>Agricultural Solutions</h1>
+    <section id="home" class="hero">
+        <h2 class="reveal tamil-main">விவசாய தீர்வுகளுக்கான தளம்</h2>
+        <h1 id="heroEng" class="reveal">Agricultural Solutions & Support</h1>
     </section>
 
-    <section class="section-padding">
-        <div class="section-label">Common Problems</div>
-        <h2 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--primary);">விவசாய சிக்கல்கள்</h2>
+    <section id="problems" class="section-padding">
+        <div class="section-label reveal">Common Problems</div>
+        <h2 class="reveal" style="font-size: 1.8rem; font-weight: 600; color: var(--primary); margin-bottom: 20px;">விவசாய பிரச்சனைகள் மற்றும் தீர்வுகள்</h2>
         <div class="grid" id="problemGrid"></div>
     </section>
 
-    <section class="section-padding" style="background: #fafafa;">
-        <div class="section-label">Search Tool</div>
-        <div class="search-container">
-            <h2 style="font-size: 1.3rem; color: var(--primary); margin-bottom: 15px;">உழவன் தேடல்</h2>
+    <section id="search" class="section-padding" style="background: #fafafa;">
+        <div class="section-label reveal">Uzhavan Search</div>
+        <div class="search-container reveal">
+            <h2 style="font-size: 1.6rem; color: var(--primary); font-weight: 600;">உழவன் தேடல் (Search)</h2>
             <div class="search-bar">
-                <input type="text" id="userInput" placeholder="எ.கா: pest control / பூச்சி">
-                <button onclick="runSearch()">தேடு (Search)</button>
+                <input type="text" id="userInput" placeholder="எ.கா: best fertilizer or pest control">
+                <button onclick="runSearch()">தேடு</button>
             </div>
-            <div id="searchFrameContainer" style="display:none; margin-top: 20px; border-radius: 15px; overflow: hidden; border: 1px solid var(--primary);">
-                <iframe id="bingFrame" src="" width="100%" height="500px" frameborder="0"></iframe>
+            <div id="searchFrameContainer" style="display:none; margin-top: 30px; border-radius: 20px; overflow: hidden; border: 2px solid var(--primary);">
+                <iframe id="bingFrame" src="" width="100%" height="600px" frameborder="0"></iframe>
             </div>
         </div>
     </section>
 
-    <section class="section-padding" style="background: #f1f8f4;">
-        <div class="section-label">Contact</div>
-        <p style="font-weight: 600; color: var(--primary); margin-bottom: 20px;">aravinthkumar2008@gmail.com</p>
-        <div class="opinion-box">
-            <h3 style="color: #9dffb0;">Your Opinion</h3>
-            <textarea id="opinionText" placeholder="கருத்துக்களை பகிரவும்..."></textarea>
-            <button style="width: 100%; background: #9dffb0; border: none; padding: 12px; border-radius: 10px; font-weight: 600;" onclick="saveOpinion()">அனுப்பு (Send)</button>
+    <section id="about" class="section-padding">
+        <div class="section-label reveal">About</div>
+        <div class="flex-row">
+            <div class="flex-item reveal">
+                <img src="https://images.unsplash.com/photo-1620200423727-8127f75d7f53?q=80&w=1170&auto=format&fit=crop" style="width:100%; border-radius:30px;" alt="Agriculture">
+            </div>
+            <div class="flex-item">
+                <h2 class="reveal" style="font-size: 1.6rem; color: var(--primary); font-weight: 600; margin-bottom: 15px;">எங்களைப் பற்றி (About Us)</h2>
+                <p class="reveal" style="font-size: 1.2rem; color: var(--primary); margin-bottom: 12px;">விவசாயத்தில் உள்ள சவால்களை எதிர்கொள்ள நாங்கள் நவீன தீர்வுகளை வழங்குகிறோம்.</p>
+                <p class="reveal" style="font-size: 0.95rem; line-height: 1.6; opacity: 0.8;">We aim to bridge the gap between traditional farming and modern technology by providing instant solutions to crop diseases and soil issues.</p>
+                <p class="reveal" style="margin-top:20px; background: var(--light-green); padding: 12px 25px; border-radius: 15px; display: inline-block; font-size: 0.9rem;"><strong>Ideas by:</strong> Aravinthkumar & Team</p>
+            </div>
         </div>
     </section>
 
-    <footer>&copy; 2026 Uzhavan | Aravinth Kumar & Team</footer>
+    <section id="contact" class="section-padding" style="background: #f1f8f4; border-radius: 60px 60px 0 0;">
+        <div class="section-label reveal">Contact</div>
+        <div class="flex-row">
+            <div class="flex-item reveal">
+                <h2 style="font-size: 1.6rem; color: var(--primary); font-weight: 600;">தொடர்பு கொள்ள (Contact)</h2>
+                <p style="font-size: 1.1rem; color: var(--primary); font-weight: 600; margin-top: 10px;">aravinthkumar2008@gmail.com</p>
+                <p style="margin-top: 10px; opacity: 0.7;">You can contact us at any time.</p>
+            </div>
+            <div class="flex-item reveal">
+                <div class="opinion-box">
+                    <h3 style="font-size: 1.2rem;">உங்கள் கருத்து (Feedback)</h3>
+                    <textarea id="opinionText" placeholder="உங்கள் கருத்தை இங்கே எழுதவும்..."></textarea>
+                    <button class="submit-btn" onclick="saveOpinion()">அனுப்பு (Send)</button>
+                    <p id="thanksMsg" style="display:none; color: #9dffb0; margin-top: 15px; text-align: center;">உங்கள் கருத்துக்கு நன்றி!</p>
+                    <span class="admin-trigger" onclick="checkAdmin()">Admin Panel</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <footer>&copy; 2026 Uzhavan | Empowering Farmers Everywhere</footer>
+
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script> 
     <script>
+        // Init Smooth Scroll
+        const lenis = new Lenis();
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+
+        // Database
         const problemsDB = [
-            { p: "Pest Attack", t: "பூச்சி தாக்குதல்", descT: "வேப்ப எண்ணெயை நீரில் கலந்து தெளிக்கவும்.", descE: "Spray 5ml Neem Oil mixed in 1L water for organic pest control." },
-            { p: "Soil Fertility", t: "மண் வளம்", descT: "மண்புழு உரம் பயன்படுத்தவும்.", descE: "Apply Vermicompost to naturally enrich the soil minerals." },
-            { p: "Water Crisis", t: "நீர் மேலாண்மை", descT: "சொட்டு நீர் பாசனம் சிறந்தது.", descE: "Use Drip Irrigation to save 70% water and target roots." },
-            { p: "Yellow Leaves", t: "மஞ்சள் இலைகள்", descT: "நைட்ரஜன் குறைபாட்டை போக்கவும்.", descE: "Apply nitrogen-rich organic fertilizers like Panchagavya." },
-            { p: "Slow Growth", t: "வளர்ச்சி குறைவு", descT: "மீன் அமிலம் தெளிக்கவும்.", descE: "Spray Fish Amino Acid to accelerate plant growth." },
-            { p: "Ant Problem", t: "எறும்பு தொல்லை", descT: "மஞ்சள் தூள் பயன்படுத்தவும்.", descE: "Sprinkle turmeric powder around the base to repel ants." }
+            { p: "Pest Attack", t: "பூச்சி தாக்குதல்", ts: "வேப்ப எண்ணெயை தெளிக்கவும்.", descT: "வேப்ப எண்ணெயை (Neem Oil) 1 லிட்டர் நீரில் 5ml கலந்து தெளிக்கவும்.", descE: "Mix 5ml of Neem Oil in 1 liter of water and spray for natural pest control." },
+            { p: "Soil Fertility", t: "மண் வளம்", ts: "இயற்கை உரங்களை சேர்க்கவும்.", descT: "மண் வளத்தை மேம்படுத்த மண்புழு உரம் பயன்படுத்தவும்.", descE: "Use Vermicompost to enrich the soil naturally." },
+            { p: "Water Management", t: "நீர் மேலாண்மை", ts: "சொட்டு நீர் பாசனம் சிறந்தது.", descT: "நீர் தட்டுப்பாட்டை குறைக்க சொட்டு நீர் பாசன முறையை பயன்படுத்தவும்.", descE: "Adopt Drip Irrigation to save water." },
+            { p: "Yellow Leaves", t: "மஞ்சள் இலைகள்", ts: "நைட்ரஜன் குறைபாட்டை சரிபார்க்கவும்.", descT: "இலைகள் மஞ்சளாக மாறினால் நைட்ரஜன் குறைபாடு இருக்கலாம்.", descE: "Yellow leaves often mean Nitrogen deficiency." },
+            { p: "Fungal Infection", t: "பூஞ்சை தொற்று", ts: "கற்றாழை கரைசல் பயன்படுத்தவும்.", descT: "கற்றாழை மற்றும் பூண்டு கரைசல் பயன்படுத்தவும்.", descE: "Apply Aloe Vera and Garlic extract for fungal issues." },
+            { p: "Slow Growth", t: "மெதுவான வளர்ச்சி", ts: "மீன் அமிலம் தெளிக்கலாம்.", descT: "மீன் அமிலம் தெளிப்பதன் மூலம் வளர்ச்சியை வேகப்படுத்தலாம்.", descE: "Spray Fish Amino Acid to boost growth." },
+            { p: "Fruit Dropping", t: "பிஞ்சு உதிர்தல்", ts: "தேமோர் கரைசல் தெளிக்கவும்.", descT: "பிஞ்சுகள் உதிர்வதை தடுக்க தேமோர் கரைசல் தெளிக்கவும்.", descE: "Spray buttermilk solution to prevent fruit drop." },
+            { p: "Root Rot", t: "வேர் அழுகல்", ts: "வடிகால் வசதியை அமைக்கவும்.", descT: "வடிகால் வசதியை மேம்படுத்தி, சூடோமோனாஸ் இடவும்.", descE: "Improve drainage and apply Pseudomonas to the roots." }
         ];
 
+        // Populate Grid
         const grid = document.getElementById('problemGrid');
         problemsDB.forEach((item) => {
             const card = document.createElement('div'); 
-            card.className = 'card';
+            card.className = 'card reveal';
             card.onclick = () => showDetails(item);
-            card.innerHTML = `<span class="tamil-text">${item.t}</span><h3>${item.p}</h3><span class="click-hint">விரிவான தீர்வு →</span>`;
+            card.innerHTML = `<span class="tamil-text">${item.t}</span><h3>${item.p}</h3><p>${item.ts}</p><span class="click-hint">விரிவான தீர்வுக்கு கிளிக் செய்யவும்</span>`;
             grid.appendChild(card);
         });
 
         function showDetails(item) {
-            const modal = document.getElementById('problemModal');
-            const data = document.getElementById('modalData');
-            data.innerHTML = `<h2 class="modal-title">${item.t}</h2><div class="modal-body"><strong>தீர்வு:</strong><p>${item.descT}</p><br><strong>English Guide:</strong><p>${item.descE}</p></div>`;
-            modal.style.display = "block";
+            document.getElementById('modalData').innerHTML = `
+                <h2 class="modal-title">${item.t} / ${item.p}</h2>
+                <div class="modal-body">
+                    <p style="color: var(--primary); font-weight: 600;">தமிழ் விளக்கம்:</p>
+                    <p style="margin-bottom:15px;">${item.descT}</p>
+                    <p style="color: var(--primary); font-weight: 600;">English Guide:</p>
+                    <p>${item.descE}</p>
+                </div>
+            `;
+            document.getElementById('problemModal').style.display = "block";
         }
+
         function closeModal() { document.getElementById('problemModal').style.display = "none"; }
         window.onclick = (e) => { if(e.target == document.getElementById('problemModal')) closeModal(); }
 
+        // Search Logic
         function runSearch() {
             const input = document.getElementById('userInput').value.toLowerCase().trim();
             const searchBar = document.querySelector('.search-bar');
+            const keywords = ['pest', 'soil', 'water', 'fertilizer', 'plant', 'crop', 'leaf', 'root', 'பூச்சி', 'மண்', 'உரம்', 'விதை'];
+            
             if (!input) return;
 
-            const allowed = ['pest', 'soil', 'water', 'fertilizer', 'plant', 'crop', 'leaf', 'root', 'fruit', 'seed', 'growth', 'farm', 'agriculture', 'organic', 'insect', 'how', 'பூச்சி', 'மண்', 'உரம்', 'விதை', 'செடி', 'விவசாயம்', 'பயிர்', 'தண்ணீர்'];
-            if (!allowed.some(k => input.includes(k))) {
-                searchBar.style.border = "2px solid #ff4d4d";
-                searchBar.animate([{ transform: 'translateX(0px)' }, { transform: 'translateX(10px)' }, { transform: 'translateX(-10px)' }, { transform: 'translateX(0px)' }], { duration: 200, iterations: 2 });
+            if (!keywords.some(k => input.includes(k))) {
+                searchBar.style.borderColor = "#ff4d4d";
+                searchBar.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(10px)' }, { transform: 'translateX(-10px)' }, { transform: 'translateX(0)' }], { duration: 200, iterations: 2 });
+                setTimeout(() => { searchBar.style.borderColor = "transparent"; }, 2000);
                 return;
             }
-            document.getElementById('bingFrame').src = `https://www.bing.com/search?q=${encodeURIComponent(input + ' agricultural guide')}`;
+
+            document.getElementById('bingFrame').src = `https://www.bing.com/search?q=${encodeURIComponent(input + ' agricultural solutions')}`;
             document.getElementById('searchFrameContainer').style.display = 'block';
+            lenis.scrollTo('#searchFrameContainer');
         }
 
         function saveOpinion() {
             const box = document.getElementById('opinionText');
             if(!box.value.trim()) return;
-            alert("நன்றி! Thanks for your opinion.");
+            document.getElementById('thanksMsg').style.display = "block";
             box.value = "";
+            setTimeout(() => { document.getElementById('thanksMsg').style.display = "none"; }, 3000);
         }
+
+        function checkAdmin() {
+            if(prompt("Enter Admin PIN:") === "1278") alert("Feedback system active.");
+        }
+
+        // Reveal Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
