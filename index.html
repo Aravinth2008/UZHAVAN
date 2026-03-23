@@ -93,7 +93,7 @@
         .search-bar button { background: var(--primary); color: white; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: 600; }
 
         @media (max-width: 480px) {
-            .search-bar { flex-direction: column; background: transparent; box-shadow: none; gap: 10px; padding: 0; }
+            .search-bar { flex-direction: column; background: transparent; box-shadow: none; gap: 10px; padding: 0; border: none; }
             .search-bar input { background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
             .search-bar button { border-radius: 15px; width: 100%; padding: 15px; }
         }
@@ -110,8 +110,8 @@
         
         .admin-trigger { display: block; margin-top: 30px; font-size: 0.7rem; opacity: 0.3; cursor: pointer; text-decoration: underline; }
 
-        /* --- REVEAL ANIMATION --- */
-        .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s ease; }
+        /* --- REVEAL ANIMATION (Updated for Mobile) --- */
+        .reveal { opacity: 0; transform: translateY(15px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; will-change: opacity, transform; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
         footer { text-align: center; padding: 40px 20px; opacity: 0.7; font-size: 0.85rem; }
@@ -264,22 +264,47 @@
             lenis.scrollTo('#searchFrameContainer');
         }
 
+        // --- UPDATED FEEDBACK SAVE LOGIC ---
         function saveOpinion() {
             const box = document.getElementById('opinionText');
-            if(!box.value.trim()) return;
+            const msg = box.value.trim();
+            if(!msg) return;
+
+            // Save to browser memory
+            let logs = JSON.parse(localStorage.getItem('uzhavan_feedback')) || [];
+            logs.push({ message: msg, time: new Date().toLocaleString() });
+            localStorage.setItem('uzhavan_feedback', JSON.stringify(logs));
+
             document.getElementById('thanksMsg').style.display = "block";
             box.value = "";
             setTimeout(() => { document.getElementById('thanksMsg').style.display = "none"; }, 3000);
         }
 
+        // --- UPDATED ADMIN LOGIC TO VIEW OPINIONS ---
         function checkAdmin() {
-            if(prompt("Enter Admin PIN:") === "1278") alert("Feedback system active.");
+            const pin = prompt("Enter Admin PIN:");
+            if(pin === "1278") {
+                const logs = JSON.parse(localStorage.getItem('uzhavan_feedback')) || [];
+                if(logs.length === 0) {
+                    alert("No feedback received yet.");
+                } else {
+                    const formattedLogs = logs.map((l, i) => `${i+1}. [${l.time}]\n${l.message}`).join('\n\n---\n\n');
+                    alert("USER FEEDBACK:\n\n" + formattedLogs);
+                }
+            } else if (pin !== null) {
+                alert("Incorrect PIN.");
+            }
         }
 
-        // Reveal Animation Observer
+        // Reveal Animation Observer (Optimized for Mobile Sensitivity)
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-        }, { threshold: 0.1 });
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } 
+            });
+        }, { threshold: 0.05, rootMargin: "0px 0px -50px 0px" });
+
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
