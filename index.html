@@ -1,640 +1,311 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ta">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Uzhavan | Agricultural Solutions</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --g1:#3B6D11;--g2:#639922;--g3:#EAF3DE;--g4:#C0DD97;--g5:#27500A;--g6:#173404;
-  --a1:#BA7517;--a2:#FAEEDA;--a3:#FAC775;
-  --wa:#25D366;--wa2:#1DA851;
-  --bg:#ffffff;--bg2:#f7f8f5;--bg3:#f0f2ec;
-  --bd:rgba(0,0,0,0.1);--bds:rgba(0,0,0,0.18);
-  --tx:#1a1a1a;--txm:#5a5a5a;--txl:#888;
-  --r:12px;--rm:8px;
-  --shadow:0 2px 12px rgba(0,0,0,0.07);
-  --shadow-lg:0 8px 32px rgba(0,0,0,0.12);
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uzhavan | Agricultural Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- SMOOTH SCROLL BASE --- */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        :root {
+            --primary: #2d6a4f;
+            --light-green: #d8f3dc;
+            --white: #ffffff;
+            --dark-text: #1b4332;
+        }
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes scaleIn{from{opacity:0;transform:scale(0.94)}to{opacity:1;transform:scale(1)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-@keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Arial', sans-serif; }
+        body { background-color: var(--white); color: var(--dark-text); overflow-x: hidden; }
 
-body{font-family:'Outfit',sans-serif;color:var(--tx);background:var(--bg2);min-height:100vh;}
+        /* --- NAVIGATION (Mobile Responsive) --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(255, 255, 255, 0.95);
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .logo { font-size: 1.5rem; font-weight: 600; color: var(--primary); letter-spacing: 2px; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { text-decoration: none; color: var(--dark-text); font-size: 0.85rem; font-weight: 500; cursor: pointer; white-space: nowrap; }
 
-/* NAV */
-.nav{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.5rem;background:var(--bg);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,0.06);animation:slideDown .4s ease;}
-.nav-logo{font-size:17px;font-weight:600;color:var(--g1);letter-spacing:3px;display:flex;align-items:center;gap:6px;}
-.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--g2);}
-.nav-tabs{display:flex;gap:2px;}
-.nav-tab{background:none;border:none;padding:7px 13px;font-size:13px;font-family:'Outfit',sans-serif;color:var(--txm);cursor:pointer;border-radius:var(--rm);transition:all .2s;position:relative;font-weight:400;}
-.nav-tab.active{color:var(--g1);background:var(--g3);font-weight:500;}
-.nav-tab:hover:not(.active){background:var(--bg2);}
-.nav-tab.active::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:16px;height:2px;background:var(--g2);border-radius:2px;}
-.nav-right{display:flex;gap:7px;}
-.btn{padding:7px 14px;font-size:13px;font-family:'Outfit',sans-serif;border-radius:var(--rm);cursor:pointer;border:1px solid var(--bds);background:var(--bg);color:var(--tx);transition:all .18s;font-weight:400;}
-.btn:hover{background:var(--bg2);transform:translateY(-1px);}
-.btn:active{transform:scale(.97);}
-.btn-g{background:var(--g1);color:#fff;border-color:var(--g1);}
-.btn-g:hover{background:var(--g5);transform:translateY(-1px);box-shadow:0 4px 12px rgba(59,109,17,0.3);}
-.btn-lg{padding:9px 20px;font-size:14px;}
+        @media (max-width: 850px) {
+            nav { flex-direction: column; gap: 12px; padding: 15px 2%; }
+            nav ul { overflow-x: auto; width: 100%; padding: 5px 10px; justify-content: flex-start; -webkit-overflow-scrolling: touch; }
+            nav ul li { margin-left: 0; margin-right: 20px; }
+        }
 
-/* PAGES */
-.page{display:none;}
-.page.active{display:block;animation:fadeIn .35s ease;}
+        /* --- HERO --- */
+        .hero {
+            height: 75vh; display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://plus.unsplash.com/premium_photo-1674019234994-eceabbdd091d?q=80&w=1074&auto=format&fit=crop');
+            background-size: cover; background-position: center; color: white; padding: 0 20px;
+        }
+        .hero .tamil-main { font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 600; color: #9dffb0; margin-bottom: 10px; }
+        #heroEng { font-size: clamp(1rem, 3vw, 1.8rem); opacity: 0.9; }
 
-/* HERO */
-.hero{position:relative;overflow:hidden;border-radius:var(--r);margin:1.25rem 1.25rem 0;background:#1a3a08;min-height:280px;}
-.hero-img{width:100%;height:290px;object-fit:cover;display:block;opacity:.5;}
-.hero-overlay{position:absolute;inset:0;padding:2rem;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(to top, rgba(10,30,5,0.85) 0%, rgba(10,30,5,0.2) 60%, transparent 100%);}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(192,221,151,0.15);border:1px solid rgba(192,221,151,0.35);color:#C0DD97;font-size:11px;padding:4px 12px;border-radius:20px;margin-bottom:.85rem;animation:fadeUp .5s .05s both;width:fit-content;}
-.hero h1{font-size:26px;font-weight:600;color:#fff;animation:fadeUp .5s .15s both;line-height:1.3;margin-bottom:.5rem;}
-.hero p{font-size:14px;color:rgba(255,255,255,.75);margin-bottom:1.25rem;animation:fadeUp .5s .25s both;}
-.hero-btns{display:flex;gap:10px;animation:fadeUp .5s .35s both;flex-wrap:wrap;}
-.hero-btn{padding:9px 18px;border-radius:var(--rm);font-size:13px;font-family:'Outfit',sans-serif;font-weight:500;cursor:pointer;border:none;transition:all .2s;}
-.hero-btn-p{background:var(--g2);color:#fff;}
-.hero-btn-p:hover{background:var(--g1);transform:translateY(-2px);box-shadow:0 4px 16px rgba(99,153,34,0.4);}
-.hero-btn-s{background:rgba(255,255,255,.13);color:#fff;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(4px);}
-.hero-btn-s:hover{background:rgba(255,255,255,.22);transform:translateY(-2px);}
-.lang-row{display:flex;gap:6px;margin-bottom:.75rem;animation:fadeUp .5s both;}
-.lang-btn{font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.25);background:none;color:rgba(255,255,255,.55);cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;}
-.lang-btn.active{background:rgba(192,221,151,.2);color:#C0DD97;border-color:rgba(192,221,151,.45);}
+        /* --- SECTIONS & LABELS --- */
+        .section-padding { padding: 60px 8%; text-align: center; }
+        .section-label { display: inline-block; background-color: var(--primary); color: white; padding: 8px 25px; border-radius: 50px; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 20px; }
 
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:1rem 1.25rem;}
-.stat{background:var(--bg);border-radius:var(--rm);padding:1.1rem 1rem;text-align:center;border:1px solid var(--bd);animation:scaleIn .4s ease both;box-shadow:var(--shadow);}
-.stat:nth-child(1){animation-delay:.1s}
-.stat:nth-child(2){animation-delay:.2s}
-.stat:nth-child(3){animation-delay:.3s}
-.stat-num{font-size:28px;font-weight:600;color:var(--g1);}
-.stat-label{font-size:11px;color:var(--txm);margin-top:2px;}
+        /* --- COMMON PROBLEMS GRID --- */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 20px; margin-top: 40px; text-align: left; 
+        }
+        
+        .card { 
+            background: var(--light-green); 
+            padding: 25px; border-radius: 20px; border: 1px solid rgba(45, 106, 79, 0.1); 
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); 
+            cursor: pointer;
+        }
+        .card:hover { 
+            transform: translateY(-10px); 
+            background: #b7e4c7; 
+            box-shadow: 0 15px 30px rgba(27, 67, 50, 0.15); 
+            border-color: var(--primary);
+        }
+        .card .tamil-text { font-size: 1.25rem; color: var(--dark-text); font-weight: 600; display: block; }
+        .card h3 { font-size: 0.85rem; color: var(--primary); opacity: 0.7; margin-bottom: 10px; text-transform: uppercase; }
+        .card p { font-size: 0.9rem; line-height: 1.5; color: var(--dark-text); margin-bottom: 10px; }
+        .card .click-hint { font-size: 0.75rem; color: var(--primary); font-weight: 600; opacity: 0.8; }
 
-/* SECTION */
-.sec{padding:0 1.25rem 1.5rem;}
-.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
-.sec-head h2{font-size:15px;font-weight:500;color:var(--tx);}
+        /* --- POPUP MODAL --- */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); overflow-y: auto; }
+        .modal-content { background-color: white; margin: 10% auto; padding: 30px; border-radius: 30px; width: 90%; max-width: 600px; position: relative; animation: modalSlide 0.4s ease; }
+        @keyframes modalSlide { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close { position: absolute; right: 25px; top: 20px; font-size: 28px; cursor: pointer; color: var(--primary); }
+        .modal-title { color: var(--primary); margin-bottom: 20px; border-bottom: 2px solid var(--light-green); padding-bottom: 10px; font-size: 1.3rem; }
 
-/* CROPS SCROLL */
-.crops-scroll{display:flex;gap:10px;overflow-x:auto;padding:.25rem 0 .75rem;scrollbar-width:none;}
-.crops-scroll::-webkit-scrollbar{display:none;}
-.crop-chip{flex-shrink:0;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;width:115px;animation:scaleIn .35s ease both;transition:transform .2s,border-color .2s,box-shadow .2s;cursor:pointer;}
-.crop-chip:hover{transform:translateY(-4px);border-color:var(--g4);box-shadow:0 6px 18px rgba(99,153,34,0.18);}
-.crop-chip img{width:100%;height:72px;object-fit:cover;display:block;}
-.crop-chip-label{font-size:11px;padding:5px 8px 2px;color:var(--tx);font-weight:500;}
-.crop-chip-sub{font-size:10px;color:var(--txm);padding:0 8px 6px;line-height:1.4;}
+        /* --- SEARCH SECTION --- */
+        .search-container { background: #f1f8f4; border-radius: 40px; padding: 40px 20px; text-align: center; border: 2px dashed var(--primary); }
+        .search-bar { 
+            display: flex; max-width: 650px; margin: 30px auto; background: white; 
+            padding: 8px; border-radius: 50px; box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease; border: 2px solid transparent;
+        }
+        .search-bar input { flex: 1; border: none; padding: 12px 20px; border-radius: 50px; outline: none; font-size: 1rem; background: transparent; width: 100%; }
+        .search-bar button { background: var(--primary); color: white; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: 600; }
 
-/* CHALLENGE CARDS */
-.probs{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;}
-.prob{background:var(--a2);border:1px solid var(--a3);border-radius:var(--r);padding:1rem;animation:fadeUp .4s ease both;transition:transform .2s,border-color .2s,box-shadow .2s;cursor:default;}
-.prob:hover{transform:translateY(-3px);border-color:var(--a1);box-shadow:0 6px 18px rgba(186,117,23,0.15);}
-.prob:nth-child(1){animation-delay:.05s}
-.prob:nth-child(2){animation-delay:.1s}
-.prob:nth-child(3){animation-delay:.15s}
-.prob:nth-child(4){animation-delay:.2s}
-.prob-icon{font-size:22px;margin-bottom:7px;}
-.prob-title{font-size:13px;font-weight:500;color:#412402;}
-.prob-desc{font-size:11px;color:#633806;margin-top:3px;line-height:1.5;}
+        @media (max-width: 480px) {
+            .search-bar { flex-direction: column; background: transparent; box-shadow: none; gap: 10px; padding: 0; border: none; }
+            .search-bar input { background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+            .search-bar button { border-radius: 15px; width: 100%; padding: 15px; }
+        }
 
-/* FARMER CARDS */
-.farmers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px;}
-.fc{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;animation:scaleIn .35s ease both;transition:transform .22s,box-shadow .22s,border-color .2s;box-shadow:var(--shadow);}
-.fc:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--g4);}
-.fc-img{width:100%;height:130px;object-fit:cover;display:block;background:var(--g3);}
-.fc-body{padding:.9rem;}
-.fc-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.avatar{width:38px;height:38px;border-radius:50%;background:var(--g3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--g5);flex-shrink:0;border:2px solid var(--g4);}
-.fc-name{font-size:13px;font-weight:500;}
-.fc-loc{font-size:11px;color:var(--txm);}
-.tag{font-size:10px;padding:2px 8px;border-radius:20px;background:var(--g3);color:var(--g5);display:inline-block;margin-bottom:8px;border:1px solid var(--g4);font-weight:500;}
+        /* --- FLEX LAYOUTS (About & Contact) --- */
+        .flex-row { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; text-align: left; }
+        .flex-item { flex: 1; min-width: 300px; }
 
-/* WHATSAPP BUTTON */
-.wa-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:8px;border-radius:var(--rm);background:var(--wa);color:#fff;border:none;cursor:pointer;font-size:12px;font-family:'Outfit',sans-serif;font-weight:500;transition:all .2s;}
-.wa-btn:hover{background:var(--wa2);transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,211,102,0.35);}
-.wa-btn:active{transform:scale(.97);}
-.wa-icon{width:14px;height:14px;fill:#fff;flex-shrink:0;}
+        /* --- CONTACT & OPINION --- */
+        .opinion-box { background: var(--dark-text); color: white; padding: 35px; border-radius: 35px; width: 100%; }
+        textarea { width: 100%; height: 140px; border-radius: 20px; padding: 20px; border: none; margin: 20px 0; outline: none; background: rgba(255,255,255,0.15); color: white; resize: none; font-size: 1rem; }
+        .submit-btn { background: #9dffb0; color: var(--dark-text); border: none; padding: 15px 40px; border-radius: 12px; cursor: pointer; font-weight: 600; transition: 0.3s; width: 100%; }
+        .submit-btn:hover { background: #76e88d; }
+        
+        .admin-trigger { display: block; margin-top: 30px; font-size: 0.7rem; opacity: 0.3; cursor: pointer; text-decoration: underline; }
 
-/* SEARCH BAR */
-.sbar{display:flex;gap:8px;margin-bottom:1rem;}
-.sbar input{flex:1;padding:9px 13px;border:1px solid var(--bd);border-radius:var(--rm);background:var(--bg);color:var(--tx);font-size:13px;font-family:'Outfit',sans-serif;transition:border-color .2s,box-shadow .2s;box-shadow:var(--shadow);}
-.sbar input:focus{outline:none;border-color:var(--g2);box-shadow:0 0 0 3px rgba(99,153,34,0.12);}
-
-/* AI SECTION */
-.ai-wrap{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:1.35rem;margin-bottom:1rem;animation:fadeUp .4s ease;box-shadow:var(--shadow);}
-.ai-hd{display:flex;align-items:center;gap:8px;margin-bottom:.4rem;}
-.ai-dot{width:9px;height:9px;border-radius:50%;background:var(--g2);animation:pulse 2s infinite;}
-.ai-title{font-size:15px;font-weight:500;}
-.ai-row{display:flex;gap:8px;margin-top:10px;}
-.ai-row input{flex:1;padding:9px 13px;border:1px solid var(--bd);border-radius:var(--rm);background:var(--bg);color:var(--tx);font-size:13px;font-family:'Outfit',sans-serif;transition:border-color .2s,box-shadow .2s;}
-.ai-row input:focus{outline:none;border-color:var(--g2);box-shadow:0 0 0 3px rgba(99,153,34,0.12);}
-.ai-resp{background:var(--g3);border:1px solid var(--g4);border-radius:var(--rm);padding:11px 14px;font-size:13px;color:var(--g6);margin-top:10px;display:none;line-height:1.7;animation:fadeUp .3s ease;}
-.ai-loading{animation:pulse 1.2s infinite;color:var(--g1);}
-.ai-chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:.85rem;}
-.ai-chip{font-size:11px;padding:5px 11px;border-radius:20px;border:1px solid var(--bd);background:var(--bg);color:var(--txm);cursor:pointer;transition:all .18s;font-family:'Outfit',sans-serif;box-shadow:var(--shadow);}
-.ai-chip:hover{background:var(--g3);color:var(--g5);border-color:var(--g4);transform:translateY(-1px);}
-
-/* AUTH */
-.auth-wrap{max-width:410px;margin:1.5rem auto;}
-.auth-card{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:2rem;animation:scaleIn .35s ease;box-shadow:var(--shadow-lg);}
-.auth-card h2{font-size:20px;font-weight:600;margin-bottom:4px;}
-.auth-sub{font-size:13px;color:var(--txm);margin-bottom:1.4rem;}
-.fg{margin-bottom:12px;}
-.fg label{display:block;font-size:11px;color:var(--txm);margin-bottom:4px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;}
-.fg input,.fg select{width:100%;padding:9px 11px;border:1px solid var(--bd);border-radius:var(--rm);background:var(--bg);color:var(--tx);font-size:13px;font-family:'Outfit',sans-serif;transition:border-color .2s,box-shadow .2s;}
-.fg input:focus,.fg select:focus{outline:none;border-color:var(--g2);box-shadow:0 0 0 3px rgba(99,153,34,0.12);}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.auth-foot{font-size:12px;color:var(--txm);text-align:center;margin-top:1rem;}
-.auth-foot span{color:var(--g1);cursor:pointer;font-weight:500;}
-.alert{padding:9px 12px;border-radius:var(--rm);font-size:12px;margin-bottom:12px;animation:fadeUp .25s ease;}
-.alert-s{background:var(--g3);color:var(--g5);border:1px solid var(--g4);}
-.alert-e{background:#FCEBEB;color:#501313;border:1px solid #F7C1C1;}
-
-/* PROFILE */
-.profile-card{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:1.5rem;animation:scaleIn .35s ease;box-shadow:var(--shadow);}
-.profile-banner{width:100%;height:110px;object-fit:cover;border-radius:var(--rm);display:block;margin-bottom:1.1rem;background:var(--g3);}
-.profile-head{display:flex;align-items:center;gap:12px;margin-bottom:1.35rem;}
-.profile-av{width:54px;height:54px;border-radius:50%;background:var(--g3);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:600;color:var(--g1);border:3px solid var(--g4);}
-.profile-info h3{font-size:17px;font-weight:600;}
-.profile-info p{font-size:12px;color:var(--txm);}
-.profile-badge{display:inline-block;font-size:10px;padding:2px 9px;border-radius:20px;background:var(--g3);color:var(--g5);border:1px solid var(--g4);margin-top:4px;font-weight:500;}
-.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.1rem;}
-.pfield label{font-size:10px;color:var(--txm);display:block;margin-bottom:2px;text-transform:uppercase;letter-spacing:.5px;font-weight:500;}
-.pfield p{font-size:13px;font-weight:400;}
-.profile-btns{display:flex;gap:9px;flex-wrap:wrap;}
-
-/* CONTACT */
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.contact-card{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:1.35rem;animation:fadeUp .4s ease both;box-shadow:var(--shadow);}
-.contact-card:nth-child(2){animation-delay:.1s}
-.contact-card h3{font-size:14px;font-weight:500;margin-bottom:.8rem;}
-.contact-card p,.contact-card a{font-size:12px;color:var(--txm);}
-.contact-card a{color:var(--g1);text-decoration:none;font-weight:500;}
-.contact-card a:hover{text-decoration:underline;}
-.opinion-ta{width:100%;padding:9px 11px;border:1px solid var(--bd);border-radius:var(--rm);background:var(--bg);color:var(--tx);font-size:12px;font-family:'Outfit',sans-serif;resize:vertical;min-height:78px;margin-bottom:8px;transition:border-color .2s,box-shadow .2s;}
-.opinion-ta:focus{outline:none;border-color:var(--g2);box-shadow:0 0 0 3px rgba(99,153,34,0.12);}
-
-/* ABOUT */
-.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;}
-.about-card{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:1.35rem;animation:fadeUp .4s ease both;box-shadow:var(--shadow);}
-.about-img{width:100%;height:200px;object-fit:cover;border-radius:var(--rm);display:block;}
-.about-card h3{font-size:14px;font-weight:500;margin-bottom:.6rem;}
-.about-card p{font-size:12px;color:var(--txm);line-height:1.7;}
-.about-card p + p{margin-top:.5rem;}
-
-/* RESPONSIVE */
-@media(max-width:640px){
-  .nav-tabs{display:none;}
-  .contact-grid,.about-wrap,.frow{grid-template-columns:1fr;}
-  .stats{grid-template-columns:repeat(3,1fr);}
-  .hero h1{font-size:20px;}
-}
-</style>
+        /* --- REVEAL ANIMATION (Updated for Mobile) --- */
+        .reveal { opacity: 0; transform: translateY(15px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; will-change: opacity, transform; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        footer { text-align: center; padding: 40px 20px; opacity: 0.7; font-size: 0.85rem; }
+    </style>
 </head>
 <body>
 
-<div class="nav">
-  <div class="nav-logo">
-    <div class="nav-dot"></div>
-    UZHAVAN
-  </div>
-  <div class="nav-tabs">
-    <button class="nav-tab active" onclick="sp('home')">Home</button>
-    <button class="nav-tab" onclick="sp('farmers')">Farmers</button>
-    <button class="nav-tab" onclick="sp('ask')">Ask AI</button>
-    <button class="nav-tab" onclick="sp('about')">About</button>
-    <button class="nav-tab" onclick="sp('contact')">Contact</button>
-  </div>
-  <div class="nav-right" id="navRight">
-    <button class="btn" onclick="sp('login')">Login</button>
-    <button class="btn btn-g" onclick="sp('signup')">Sign Up</button>
-  </div>
-</div>
-
-<!-- HOME -->
-<div class="page active" id="page-home">
-  <div class="hero">
-    <img class="hero-img" id="heroImg" src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=900&q=80" alt="Tamil Nadu farming">
-    <div class="hero-overlay">
-      <div class="lang-row">
-        <button class="lang-btn active" onclick="setLang('en')">English</button>
-        <button class="lang-btn" onclick="setLang('ta')">தமிழ்</button>
-      </div>
-      <div class="hero-badge">
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#C0DD97" stroke-width="1.2"/><path d="M3 5l1.5 1.5L7 3.5" stroke="#C0DD97" stroke-width="1.2" stroke-linecap="round"/></svg>
-        Tamil Nadu Farmer Network
-      </div>
-      <h1 id="heroTitle">Smart Solutions for Every Farmer</h1>
-      <p id="heroSub">Empowering agriculture through knowledge and innovation.</p>
-      <div class="hero-btns">
-        <button class="hero-btn hero-btn-p" onclick="sp('signup')" id="heroCta1">Create Account</button>
-        <button class="hero-btn hero-btn-s" onclick="sp('farmers')" id="heroCta2">Browse Farmers</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="stats">
-    <div class="stat"><div class="stat-num" id="sn1">0</div><div class="stat-label" id="sl1">Farmers Registered</div></div>
-    <div class="stat"><div class="stat-num" id="sn2">0</div><div class="stat-label" id="sl2">Crops Covered</div></div>
-    <div class="stat"><div class="stat-num" id="sn3">0</div><div class="stat-label" id="sl3">Districts</div></div>
-  </div>
-
-  <div class="sec">
-    <div class="sec-head"><h2 id="cropsTitle">Featured crops</h2></div>
-    <div class="crops-scroll" id="cropsScroll"></div>
-  </div>
-
-  <div class="sec">
-    <div class="sec-head"><h2 id="challengeTitle">Common challenges</h2></div>
-    <div class="probs">
-      <div class="prob"><div class="prob-icon">🪲</div><div class="prob-title" id="pc1">Pest Control</div><div class="prob-desc" id="pd1">Identify and manage crop pests effectively.</div></div>
-      <div class="prob"><div class="prob-icon">💧</div><div class="prob-title" id="pc2">Water Management</div><div class="prob-desc" id="pd2">Smart irrigation for water-scarce regions.</div></div>
-      <div class="prob"><div class="prob-icon">🌱</div><div class="prob-title" id="pc3">Soil Health</div><div class="prob-desc" id="pd3">Test and improve soil fertility naturally.</div></div>
-      <div class="prob"><div class="prob-icon">📊</div><div class="prob-title" id="pc4">Market Prices</div><div class="prob-desc" id="pd4">Get fair prices for your produce.</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- FARMERS -->
-<div class="page" id="page-farmers">
-  <div class="sec" style="padding-top:1.25rem;">
-    <div class="sec-head">
-      <h2 id="farmersTitle">Farmer directory</h2>
-      <button class="btn btn-g" onclick="sp('signup')">+ Join as farmer</button>
-    </div>
-    <div class="sbar">
-      <input type="text" id="fsearch" placeholder="Search by name, crop or location…" oninput="filterFarmers()">
-    </div>
-    <div class="farmers-grid" id="farmersGrid"></div>
-  </div>
-</div>
-
-<!-- ASK AI -->
-<div class="page" id="page-ask">
-  <div class="sec" style="padding-top:1.25rem;">
-    <div class="ai-wrap">
-      <div class="ai-hd">
-        <div class="ai-dot"></div>
-        <span class="ai-title">Ask Uzhavan AI</span>
-      </div>
-      <p style="font-size:12px;color:var(--txm);" id="askDesc">Ask anything about crops, pests, soil, or market prices. Tamil or English welcome.</p>
-      <div class="ai-row">
-        <input type="text" id="aiInput" placeholder="e.g. How many days does cotton take to grow?" onkeydown="if(event.key==='Enter')askAI()">
-        <button class="btn btn-g" onclick="askAI()">Ask</button>
-      </div>
-      <div class="ai-resp" id="aiResp"></div>
-    </div>
-    <div class="ai-chips">
-      <span class="ai-chip" onclick="setQ('How many days does cotton take to grow?')">Cotton growth days</span>
-      <span class="ai-chip" onclick="setQ('Best fertilizer for paddy?')">Paddy fertilizer</span>
-      <span class="ai-chip" onclick="setQ('How to control pests in tomato?')">Tomato pest control</span>
-      <span class="ai-chip" onclick="setQ('பருத்தி எத்தனை நாட்களில் வளரும்?')">பருத்தி வளர்ச்சி</span>
-      <span class="ai-chip" onclick="setQ('Soil preparation for sugarcane?')">Sugarcane soil prep</span>
-      <span class="ai-chip" onclick="setQ('வாழைக்கு நீர்ப்பாசன முறை என்ன?')">வாழை நீர்ப்பாசனம்</span>
-    </div>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<div class="page" id="page-about">
-  <div class="sec" style="padding-top:1.25rem;">
-    <div class="sec-head"><h2>About Uzhavan</h2></div>
-    <div class="about-wrap">
-      <div class="about-card" style="animation-delay:.05s">
-        <h3>Our mission</h3>
-        <p>We are giving solutions and answers for problems related to agriculture. Our mission is to bridge the gap between traditional farming and modern expertise.</p>
-        <p style="margin-top:.75rem;">Uzhavan connects Tamil Nadu farmers directly with each other and with AI-powered agricultural knowledge — in both Tamil and English.</p>
-        <p style="margin-top:.75rem;"><strong>Created by:</strong> Aravinthkumar R</p>
-        <p style="margin-top:4px;"><a href="mailto:aravinthkumar2008@gmail.com" style="color:var(--g1);font-size:12px;">aravinthkumar2008@gmail.com</a></p>
-      </div>
-      <div class="about-card" style="animation-delay:.12s">
-        <img class="about-img" src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&q=80" alt="Farming">
-        <div style="margin-top:.85rem;">
-          <h3>What we offer</h3>
-          <p>✦ AI crop advisor in Tamil &amp; English<br>✦ Farmer-to-farmer WhatsApp connect<br>✦ Crop duration &amp; care guides<br>✦ Pest &amp; soil health tips<br>✦ Market price awareness</p>
+    <div id="problemModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalData"></div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
 
-<!-- LOGIN -->
-<div class="page" id="page-login">
-  <div class="auth-wrap">
-    <div class="auth-card">
-      <h2>Welcome back</h2>
-      <p class="auth-sub">Login to your Uzhavan account</p>
-      <div id="loginAlert"></div>
-      <div class="fg"><label>Phone number</label><input type="tel" id="lPhone" placeholder="10-digit WhatsApp number"></div>
-      <div class="fg"><label>Password</label><input type="password" id="lPass" placeholder="Your password"></div>
-      <button class="btn btn-g btn-lg" style="width:100%;margin-top:6px;" onclick="doLogin()">Login</button>
-      <div class="auth-foot">No account? <span onclick="sp('signup')">Sign up free</span></div>
-    </div>
-  </div>
-</div>
+    <nav>
+        <div class="logo">UZHAVAN</div>
+        <ul>
+            <li><a onclick="lenis.scrollTo('#home')">முகப்பு (Home)</a></li>
+            <li><a onclick="lenis.scrollTo('#problems')">சிக்கல்கள் (Problems)</a></li>
+            <li><a onclick="lenis.scrollTo('#search')">தேடல் (Search)</a></li>
+            <li><a onclick="lenis.scrollTo('#about')">பற்றி (About)</a></li>
+            <li><a onclick="lenis.scrollTo('#contact')">தொடர்பு (Contact)</a></li>
+        </ul>
+    </nav>
 
-<!-- SIGNUP -->
-<div class="page" id="page-signup">
-  <div class="auth-wrap">
-    <div class="auth-card">
-      <h2>Create account</h2>
-      <p class="auth-sub">Join the Uzhavan farmer network — free forever</p>
-      <div id="signupAlert"></div>
-      <div class="frow">
-        <div class="fg"><label>Full name</label><input type="text" id="rName" placeholder="Your name"></div>
-        <div class="fg"><label>WhatsApp number</label><input type="tel" id="rPhone" placeholder="10 digits"></div>
-      </div>
-      <div class="frow">
-        <div class="fg"><label>District</label>
-          <select id="rDistrict">
-            <option value="">Select district</option>
-            <option>Trichy</option><option>Thanjavur</option><option>Madurai</option>
-            <option>Coimbatore</option><option>Salem</option><option>Tirunelveli</option>
-            <option>Chennai</option><option>Vellore</option><option>Dindigul</option>
-          </select>
+    <section id="home" class="hero">
+        <h2 class="reveal tamil-main">விவசாய தீர்வுகளுக்கான தளம்</h2>
+        <h1 id="heroEng" class="reveal">Agricultural Solutions & Support</h1>
+    </section>
+
+    <section id="problems" class="section-padding">
+        <div class="section-label reveal">Common Problems</div>
+        <h2 class="reveal" style="font-size: 1.8rem; font-weight: 600; color: var(--primary); margin-bottom: 20px;">விவசாய பிரச்சனைகள் மற்றும் தீர்வுகள்</h2>
+        <div class="grid" id="problemGrid"></div>
+    </section>
+
+    <section id="search" class="section-padding" style="background: #fafafa;">
+        <div class="section-label reveal">Uzhavan Search</div>
+        <div class="search-container reveal">
+            <h2 style="font-size: 1.6rem; color: var(--primary); font-weight: 600;">உழவன் தேடல் (Search)</h2>
+            <div class="search-bar">
+                <input type="text" id="userInput" placeholder="எ.கா: best fertilizer or pest control">
+                <button onclick="runSearch()">தேடு</button>
+            </div>
+            <div id="searchFrameContainer" style="display:none; margin-top: 30px; border-radius: 20px; overflow: hidden; border: 2px solid var(--primary);">
+                <iframe id="bingFrame" src="" width="100%" height="600px" frameborder="0"></iframe>
+            </div>
         </div>
-        <div class="fg"><label>Village / Town</label><input type="text" id="rVillage" placeholder="Village name"></div>
-      </div>
-      <div class="fg"><label>Main crop</label>
-        <select id="rCrop">
-          <option value="">Select crop</option>
-          <option>Paddy / நெல்</option><option>Cotton / பருத்தி</option><option>Tomato / தக்காளி</option>
-          <option>Banana / வாழை</option><option>Sugarcane / கரும்பு</option><option>Groundnut / கடலை</option>
-          <option>Turmeric / மஞ்சள்</option><option>Onion / வெங்காயம்</option>
-        </select>
-      </div>
-      <div class="fg"><label>Password</label><input type="password" id="rPass" placeholder="Minimum 6 characters"></div>
-      <button class="btn btn-g btn-lg" style="width:100%;margin-top:6px;" onclick="doSignup()">Create account</button>
-      <div class="auth-foot">Already registered? <span onclick="sp('login')">Login</span></div>
-    </div>
-  </div>
-</div>
+    </section>
 
-<!-- PROFILE -->
-<div class="page" id="page-profile">
-  <div class="sec" style="padding-top:1.25rem;">
-    <div class="profile-card">
-      <img class="profile-banner" id="profileBanner" src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=70" alt="">
-      <div class="profile-head">
-        <div class="profile-av" id="profileAv">AK</div>
-        <div class="profile-info">
-          <h3 id="profileName">Farmer Name</h3>
-          <p id="profileLoc">Location</p>
-          <span class="profile-badge" id="profileCrop">Crop</span>
+    <section id="about" class="section-padding">
+        <div class="section-label reveal">About</div>
+        <div class="flex-row">
+            <div class="flex-item reveal">
+                <img src="https://images.unsplash.com/photo-1620200423727-8127f75d7f53?q=80&w=1170&auto=format&fit=crop" style="width:100%; border-radius:30px;" alt="Agriculture">
+            </div>
+            <div class="flex-item">
+                <h2 class="reveal" style="font-size: 1.6rem; color: var(--primary); font-weight: 600; margin-bottom: 15px;">எங்களைப் பற்றி (About Us)</h2>
+                <p class="reveal" style="font-size: 1.2rem; color: var(--primary); margin-bottom: 12px;">விவசாயத்தில் உள்ள சவால்களை எதிர்கொள்ள நாங்கள் நவீன தீர்வுகளை வழங்குகிறோம்.</p>
+                <p class="reveal" style="font-size: 0.95rem; line-height: 1.6; opacity: 0.8;">We aim to bridge the gap between traditional farming and modern technology by providing instant solutions to crop diseases and soil issues.</p>
+                <p class="reveal" style="margin-top:20px; background: var(--light-green); padding: 12px 25px; border-radius: 15px; display: inline-block; font-size: 0.9rem;"><strong>Ideas by:</strong> Uzhavan team</p>
+            </div>
         </div>
-      </div>
-      <div class="pgrid">
-        <div class="pfield"><label>WhatsApp</label><p id="profilePhone">-</p></div>
-        <div class="pfield"><label>District</label><p id="profileDistrict">-</p></div>
-      </div>
-      <div class="profile-btns">
-        <button class="wa-btn" style="width:auto;padding:9px 20px;" onclick="openMyWA()">
-          <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.126 1.532 5.862L0 24l6.305-1.654A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.37l-.36-.213-3.741.981.998-3.648-.234-.374A9.817 9.817 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
-          My WhatsApp
-        </button>
-        <button class="btn" onclick="doLogout()">Logout</button>
-      </div>
-    </div>
-  </div>
-</div>
+    </section>
 
-<!-- CONTACT -->
-<div class="page" id="page-contact">
-  <div class="sec" style="padding-top:1.25rem;">
-    <div class="contact-grid">
-      <div class="contact-card">
-        <h3>Get in touch</h3>
-        <p>Created by Aravinthkumar R</p>
-        <p style="margin-top:6px;"><a href="mailto:aravinthkumar2008@gmail.com">aravinthkumar2008@gmail.com</a></p>
-        <div style="margin-top:1.1rem;">
-          <button class="wa-btn" onclick="window.open('https://wa.me/91?text=Hi%20Uzhavan%20team','_blank')">
-            <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.126 1.532 5.862L0 24l6.305-1.654A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.37l-.36-.213-3.741.981.998-3.648-.234-.374A9.817 9.817 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
-            Chat on WhatsApp
-          </button>
+    <section id="contact" class="section-padding" style="background: #f1f8f4; border-radius: 60px 60px 0 0;">
+        <div class="section-label reveal">Contact</div>
+        <div class="flex-row">
+            <div class="flex-item reveal">
+                <h2 style="font-size: 1.6rem; color: var(--primary); font-weight: 600;">தொடர்பு கொள்ள (Contact)</h2>
+                <p style="font-size: 1.1rem; color: var(--primary); font-weight: 600; margin-top: 10px;">uzhavansupportteam@gmail.com</p>
+                <p style="margin-top: 10px; opacity: 0.7;">You can contact us at any time.</p>
+            </div>
+            <div class="flex-item reveal">
+                <div class="opinion-box">
+                    <h3 style="font-size: 1.2rem;">உங்கள் கருத்து (Feedback)</h3>
+                    <textarea id="opinionText" placeholder="உங்கள் கருத்தை இங்கே எழுதவும்..."></textarea>
+                    <button class="submit-btn" onclick="saveOpinion()">அனுப்பு (Send)</button>
+                    <p id="thanksMsg" style="display:none; color: #9dffb0; margin-top: 15px; text-align: center;">உங்கள் கருத்துக்கு நன்றி!</p>
+                    <span class="admin-trigger" onclick="checkAdmin()">Admin Panel</span>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="contact-card">
-        <h3>Share your opinion</h3>
-        <p style="margin-bottom:8px;font-size:11px;color:var(--txm);">உங்கள் கருத்தை பகிருங்கள் / Share your feedback</p>
-        <textarea class="opinion-ta" id="opinionText" placeholder="How is Uzhavan helping you?"></textarea>
-        <button class="btn btn-g" style="width:100%;" onclick="submitFeedback()">Submit feedback</button>
-        <div id="feedbackMsg" style="margin-top:8px;font-size:12px;"></div>
-      </div>
-    </div>
-  </div>
-</div>
+    </section>
 
-<script>
-const IMGS={
-  field1:"https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&q=70",
-  field2:"https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&q=70",
-  field3:"https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=70",
-  field4:"https://images.unsplash.com/photo-1592838064575-70ed626d3a0e?w=400&q=70",
-  field5:"https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&q=70",
-  field6:"https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&q=70",
-  paddy:"https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=200&q=70",
-  cotton:"https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=200&q=70",
-  tomato:"https://images.unsplash.com/photo-1582284540020-8acbe03f4924?w=200&q=70",
-  banana:"https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=200&q=70",
-  sugarcane:"https://images.unsplash.com/photo-1504493137254-b7f7b789a5bd?w=200&q=70",
-  turmeric:"https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=200&q=70"
-};
+    <footer>&copy; 2026 Uzhavan | Empowering Farmers Everywhere</footer>
 
-const FARMERS=[
-  {name:"Murugan Selvam",phone:"9876543210",district:"Trichy",village:"Manachanallur",crop:"Paddy / நெல்",initials:"MS",img:IMGS.field1},
-  {name:"Kamala Devi",phone:"9823456789",district:"Thanjavur",village:"Papanasam",crop:"Banana / வாழை",initials:"KD",img:IMGS.field2},
-  {name:"Arjunan Pillai",phone:"9745678901",district:"Madurai",village:"Usilampatti",crop:"Cotton / பருத்தி",initials:"AP",img:IMGS.field3},
-  {name:"Sumathi R",phone:"9912345678",district:"Salem",village:"Attur",crop:"Tomato / தக்காளி",initials:"SR",img:IMGS.field4},
-  {name:"Rajan Nair",phone:"9833456710",district:"Coimbatore",village:"Pollachi",crop:"Sugarcane / கரும்பு",initials:"RN",img:IMGS.field5},
-  {name:"Meenakshi T",phone:"9654321098",district:"Tirunelveli",village:"Sankarankovil",crop:"Turmeric / மஞ்சள்",initials:"MT",img:IMGS.field6}
-];
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script> 
+    <script>
+        // Init Smooth Scroll
+        const lenis = new Lenis();
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
 
-const CROPS=[
-  {name:"Paddy",ta:"நெல்",img:IMGS.paddy,days:"120–150 days"},
-  {name:"Cotton",ta:"பருத்தி",img:IMGS.cotton,days:"160–200 days"},
-  {name:"Tomato",ta:"தக்காளி",img:IMGS.tomato,days:"60–80 days"},
-  {name:"Banana",ta:"வாழை",img:IMGS.banana,days:"9–12 months"},
-  {name:"Sugarcane",ta:"கரும்பு",img:IMGS.sugarcane,days:"10–14 months"},
-  {name:"Turmeric",ta:"மஞ்சள்",img:IMGS.turmeric,days:"8–10 months"}
-];
+        // Database
+        const problemsDB = [
+            { p: "Pest Attack", t: "பூச்சி தாக்குதல்", ts: "வேப்ப எண்ணெயை தெளிக்கவும்.", descT: "வேப்ப எண்ணெயை (Neem Oil) 1 லிட்டர் நீரில் 5ml கலந்து தெளிக்கவும்.", descE: "Mix 5ml of Neem Oil in 1 liter of water and spray for natural pest control." },
+            { p: "Soil Fertility", t: "மண் வளம்", ts: "இயற்கை உரங்களை சேர்க்கவும்.", descT: "மண் வளத்தை மேம்படுத்த மண்புழு உரம் பயன்படுத்தவும்.", descE: "Use Vermicompost to enrich the soil naturally." },
+            { p: "Water Management", t: "நீர் மேலாண்மை", ts: "சொட்டு நீர் பாசனம் சிறந்தது.", descT: "நீர் தட்டுப்பாட்டை குறைக்க சொட்டு நீர் பாசன முறையை பயன்படுத்தவும்.", descE: "Adopt Drip Irrigation to save water." },
+            { p: "Yellow Leaves", t: "மஞ்சள் இலைகள்", ts: "நைட்ரஜன் குறைபாட்டை சரிபார்க்கவும்.", descT: "இலைகள் மஞ்சளாக மாறினால் நைட்ரஜன் குறைபாடு இருக்கலாம்.", descE: "Yellow leaves often mean Nitrogen deficiency." },
+            { p: "Fungal Infection", t: "பூஞ்சை தொற்று", ts: "கற்றாழை கரைசல் பயன்படுத்தவும்.", descT: "கற்றாழை மற்றும் பூண்டு கரைசல் பயன்படுத்தவும்.", descE: "Apply Aloe Vera and Garlic extract for fungal issues." },
+            { p: "Slow Growth", t: "மெதுவான வளர்ச்சி", ts: "மீன் அமிலம் தெளிக்கலாம்.", descT: "மீன் அமிலம் தெளிப்பதன் மூலம் வளர்ச்சியை வேகப்படுத்தலாம்.", descE: "Spray Fish Amino Acid to boost growth." },
+            { p: "Fruit Dropping", t: "பிஞ்சு உதிர்தல்", ts: "தேமோர் கரைசல் தெளிக்கவும்.", descT: "பிஞ்சுகள் உதிர்வதை தடுக்க தேமோர் கரைசல் தெளிக்கவும்.", descE: "Spray buttermilk solution to prevent fruit drop." },
+            { p: "Root Rot", t: "வேர் அழுகல்", ts: "வடிகால் வசதியை அமைக்கவும்.", descT: "வடிகால் வசதியை மேம்படுத்தி, சூடோமோனாஸ் இடவும்.", descE: "Improve drainage and apply Pseudomonas to the roots." }
+        ];
 
-const LANG={
-  en:{heroTitle:"Smart Solutions for Every Farmer",heroSub:"Empowering agriculture through knowledge and innovation.",heroCta1:"Create Account",heroCta2:"Browse Farmers",sl1:"Farmers Registered",sl2:"Crops Covered",sl3:"Districts",cropsTitle:"Featured crops",challengeTitle:"Common challenges",farmersTitle:"Farmer directory",askDesc:"Ask anything about crops, pests, soil, or market prices. Tamil or English welcome.",pc1:"Pest Control",pd1:"Identify and manage crop pests effectively.",pc2:"Water Management",pd2:"Smart irrigation for water-scarce regions.",pc3:"Soil Health",pd3:"Test and improve soil fertility naturally.",pc4:"Market Prices",pd4:"Get fair prices for your produce."},
-  ta:{heroTitle:"ஒவ்வொரு விவசாயிக்கும் சிறந்த தீர்வுகள்",heroSub:"அறிவு மற்றும் கண்டுபிடிப்பின் மூலம் விவசாயத்தை மேம்படுத்துகிறோம்.",heroCta1:"கணக்கு தொடங்குங்கள்",heroCta2:"விவசாயிகளை பார்க்கவும்",sl1:"பதிவு செய்த விவசாயிகள்",sl2:"பயிர் வகைகள்",sl3:"மாவட்டங்கள்",cropsTitle:"சிறப்பு பயிர்கள்",challengeTitle:"பொதுவான சவால்கள்",farmersTitle:"விவசாயி அட்டவணை",askDesc:"பயிர் காலம், பூச்சி கட்டுப்பாடு, மண் ஆரோக்கியம் பற்றி கேளுங்கள். தமிழிலும் கேட்கலாம்.",pc1:"பூச்சி கட்டுப்பாடு",pd1:"பயிர் பூச்சிகளை திறம்படக் கையாளுங்கள்.",pc2:"நீர் மேலாண்மை",pd2:"நீர் பற்றாக்குறை பகுதிகளுக்கு நல்ல நீர்ப்பாசனம்.",pc3:"மண் ஆரோக்கியம்",pd3:"மண் வளத்தை இயற்கையாக சோதித்து மேம்படுத்துங்கள்.",pc4:"சந்தை விலைகள்",pd4:"உங்கள் விளைபொருளுக்கு நியாயமான விலை பெறுங்கள்."}
-};
+        // Populate Grid
+        const grid = document.getElementById('problemGrid');
+        problemsDB.forEach((item) => {
+            const card = document.createElement('div'); 
+            card.className = 'card reveal';
+            card.onclick = () => showDetails(item);
+            card.innerHTML = `<span class="tamil-text">${item.t}</span><h3>${item.p}</h3><p>${item.ts}</p><span class="click-hint">விரிவான தீர்வுக்கு கிளிக் செய்யவும்</span>`;
+            grid.appendChild(card);
+        });
 
-let loggedInUser=null;
+        function showDetails(item) {
+            document.getElementById('modalData').innerHTML = `
+                <h2 class="modal-title">${item.t} / ${item.p}</h2>
+                <div class="modal-body">
+                    <p style="color: var(--primary); font-weight: 600;">தமிழ் விளக்கம்:</p>
+                    <p style="margin-bottom:15px;">${item.descT}</p>
+                    <p style="color: var(--primary); font-weight: 600;">English Guide:</p>
+                    <p>${item.descE}</p>
+                </div>
+            `;
+            document.getElementById('problemModal').style.display = "block";
+        }
 
-function setLang(l){
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.trim()===(l==='en'?'English':'தமிழ்')));
-  const L=LANG[l];
-  Object.keys(L).forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=L[id];});
-}
+        function closeModal() { document.getElementById('problemModal').style.display = "none"; }
+        window.onclick = (e) => { if(e.target == document.getElementById('problemModal')) closeModal(); }
 
-function animateCount(el,target,dur){
-  let start=0,step=target/60;
-  const tick=()=>{start=Math.min(start+step,target);el.textContent=Math.round(start);if(start<target)requestAnimationFrame(tick);};
-  requestAnimationFrame(tick);
-}
+        // Search Logic
+        function runSearch() {
+            const input = document.getElementById('userInput').value.toLowerCase().trim();
+            const searchBar = document.querySelector('.search-bar');
+            const keywords = ['pest', 'soil', 'water', 'fertilizer', 'plant', 'crop', 'leaf', 'root', 'பூச்சி', 'மண்', 'உரம்', 'விதை'];
+            
+            if (!input) return;
 
-function sp(p){
-  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));
-  const pg=document.getElementById('page-'+p);
-  if(!pg)return;
-  pg.classList.add('active');
-  const map={home:0,farmers:1,ask:2,about:3,contact:4};
-  const tabs=document.querySelectorAll('.nav-tab');
-  if(map[p]!==undefined)tabs[map[p]].classList.add('active');
-  if(p==='farmers')renderFarmers(FARMERS);
-  if(p==='home'){
-    setTimeout(()=>{
-      animateCount(document.getElementById('sn1'),124,900);
-      animateCount(document.getElementById('sn2'),18,800);
-      animateCount(document.getElementById('sn3'),6,700);
-    },300);
-  }
-  window.scrollTo({top:0,behavior:'smooth'});
-}
+            if (!keywords.some(k => input.includes(k))) {
+                searchBar.style.borderColor = "#ff4d4d";
+                searchBar.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(10px)' }, { transform: 'translateX(-10px)' }, { transform: 'translateX(0)' }], { duration: 200, iterations: 2 });
+                setTimeout(() => { searchBar.style.borderColor = "transparent"; }, 2000);
+                return;
+            }
 
-function renderCrops(){
-  const c=document.getElementById('cropsScroll');
-  c.innerHTML=CROPS.map((cr,i)=>`
-    <div class="crop-chip" style="animation-delay:${i*0.07}s" onclick="goAsk('How many days does ${cr.name} take to grow and what care is needed?')">
-      <img src="${cr.img}" alt="${cr.name}" loading="lazy">
-      <div class="crop-chip-label">${cr.name} / ${cr.ta}</div>
-      <div class="crop-chip-sub">${cr.days}</div>
-    </div>`).join('');
-}
+            document.getElementById('bingFrame').src = `https://www.bing.com/search?q=${encodeURIComponent(input + ' agricultural solutions')}`;
+            document.getElementById('searchFrameContainer').style.display = 'block';
+            lenis.scrollTo('#searchFrameContainer');
+        }
 
-function goAsk(q){
-  sp('ask');
-  setTimeout(()=>{document.getElementById('aiInput').value=q;},200);
-}
+        // --- UPDATED FEEDBACK SAVE LOGIC ---
+        function saveOpinion() {
+            const box = document.getElementById('opinionText');
+            const msg = box.value.trim();
+            if(!msg) return;
 
-const WA_SVG=`<svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.126 1.532 5.862L0 24l6.305-1.654A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.37l-.36-.213-3.741.981.998-3.648-.234-.374A9.817 9.817 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>`;
+            // Save to browser memory
+            let logs = JSON.parse(localStorage.getItem('uzhavan_feedback')) || [];
+            logs.push({ message: msg, time: new Date().toLocaleString() });
+            localStorage.setItem('uzhavan_feedback', JSON.stringify(logs));
 
-function renderFarmers(list){
-  const g=document.getElementById('farmersGrid');
-  g.innerHTML=list.map((f,i)=>`
-    <div class="fc" style="animation-delay:${i*0.07}s">
-      <img class="fc-img" src="${f.img}" alt="${f.name}" loading="lazy">
-      <div class="fc-body">
-        <div class="fc-top">
-          <div class="avatar">${f.initials}</div>
-          <div><div class="fc-name">${f.name}</div><div class="fc-loc">${f.village}, ${f.district}</div></div>
-        </div>
-        <span class="tag">${f.crop}</span>
-        <button class="wa-btn" onclick="openWA('${f.phone}','${f.name}')">
-          ${WA_SVG} Contact ${f.name.split(' ')[0]} on WhatsApp
-        </button>
-      </div>
-    </div>`).join('');
-}
+            document.getElementById('thanksMsg').style.display = "block";
+            box.value = "";
+            setTimeout(() => { document.getElementById('thanksMsg').style.display = "none"; }, 3000);
+        }
 
-function filterFarmers(){
-  const q=document.getElementById('fsearch').value.toLowerCase();
-  renderFarmers(FARMERS.filter(f=>f.name.toLowerCase().includes(q)||f.crop.toLowerCase().includes(q)||f.district.toLowerCase().includes(q)||f.village.toLowerCase().includes(q)));
-}
+        // --- UPDATED ADMIN LOGIC TO VIEW OPINIONS ---
+        function checkAdmin() {
+            const pin = prompt("Enter Admin PIN:");
+            if(pin === "1278") {
+                const logs = JSON.parse(localStorage.getItem('uzhavan_feedback')) || [];
+                if(logs.length === 0) {
+                    alert("No feedback received yet.");
+                } else {
+                    const formattedLogs = logs.map((l, i) => `${i+1}. [${l.time}]\n${l.message}`).join('\n\n---\n\n');
+                    alert("USER FEEDBACK:\n\n" + formattedLogs);
+                }
+            } else if (pin !== null) {
+                alert("Incorrect PIN.");
+            }
+        }
 
-function openWA(phone,name){
-  const msg=encodeURIComponent(`வணக்கம் ${name}! Uzhavan மூலம் உங்களை தொடர்பு கொள்கிறேன். / Hi ${name}, contacting you through Uzhavan.`);
-  window.open(`https://wa.me/91${phone}?text=${msg}`,'_blank');
-}
-function openMyWA(){if(loggedInUser)window.open(`https://wa.me/91${loggedInUser.phone}`,'_blank');}
+        // Reveal Animation Observer (Optimized for Mobile Sensitivity)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } 
+            });
+        }, { threshold: 0.05, rootMargin: "0px 0px -50px 0px" });
 
-function doLogin(){
-  const phone=document.getElementById('lPhone').value.trim();
-  const pass=document.getElementById('lPass').value.trim();
-  const saved=JSON.parse(localStorage.getItem('uzhavanUsers')||'[]');
-  const user=saved.find(u=>u.phone===phone&&u.password===pass);
-  if(!user){document.getElementById('loginAlert').innerHTML='<div class="alert alert-e">Invalid phone or password.</div>';return;}
-  loggedInUser=user;setLoggedIn(user);
-}
-
-function doSignup(){
-  const name=document.getElementById('rName').value.trim();
-  const phone=document.getElementById('rPhone').value.trim();
-  const district=document.getElementById('rDistrict').value;
-  const village=document.getElementById('rVillage').value.trim();
-  const crop=document.getElementById('rCrop').value;
-  const pass=document.getElementById('rPass').value.trim();
-  if(!name||!phone||!district||!village||!crop||!pass){document.getElementById('signupAlert').innerHTML='<div class="alert alert-e">Please fill all fields.</div>';return;}
-  if(phone.length!==10||isNaN(phone)){document.getElementById('signupAlert').innerHTML='<div class="alert alert-e">Enter a valid 10-digit phone number.</div>';return;}
-  if(pass.length<6){document.getElementById('signupAlert').innerHTML='<div class="alert alert-e">Password must be at least 6 characters.</div>';return;}
-  const users=JSON.parse(localStorage.getItem('uzhavanUsers')||'[]');
-  if(users.find(u=>u.phone===phone)){document.getElementById('signupAlert').innerHTML='<div class="alert alert-e">Phone number already registered.</div>';return;}
-  const fieldImgs=[IMGS.field1,IMGS.field2,IMGS.field3,IMGS.field4,IMGS.field5,IMGS.field6];
-  const user={name,phone,district,village,crop,password:pass,initials:name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2),img:fieldImgs[Math.floor(Math.random()*6)]};
-  users.push(user);
-  localStorage.setItem('uzhavanUsers',JSON.stringify(users));
-  FARMERS.push(user);
-  loggedInUser=user;
-  document.getElementById('signupAlert').innerHTML='<div class="alert alert-s">Account created successfully!</div>';
-  setTimeout(()=>setLoggedIn(user),700);
-}
-
-function setLoggedIn(user){
-  document.getElementById('navRight').innerHTML=`<button class="btn btn-g" onclick="sp('profile')">${user.initials} ${user.name.split(' ')[0]}</button>`;
-  document.getElementById('profileName').textContent=user.name;
-  document.getElementById('profileLoc').textContent=`${user.village}, ${user.district}`;
-  document.getElementById('profileCrop').textContent=user.crop;
-  document.getElementById('profilePhone').textContent='+91 '+user.phone;
-  document.getElementById('profileDistrict').textContent=user.district;
-  document.getElementById('profileAv').textContent=user.initials;
-  sp('profile');
-}
-
-function doLogout(){
-  loggedInUser=null;
-  document.getElementById('navRight').innerHTML=`<button class="btn" onclick="sp('login')">Login</button><button class="btn btn-g" onclick="sp('signup')">Sign Up</button>`;
-  sp('home');
-}
-
-function setQ(q){document.getElementById('aiInput').value=q;}
-
-async function askAI(){
-  const q=document.getElementById('aiInput').value.trim();
-  if(!q)return;
-  const resp=document.getElementById('aiResp');
-  resp.style.display='block';
-  resp.innerHTML='<span class="ai-loading">Uzhavan is thinking…</span>';
-  try{
-    const res=await fetch("https://api.anthropic.com/v1/messages",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        model:"claude-sonnet-4-20250514",
-        max_tokens:1000,
-        system:"You are Uzhavan, an AI assistant for Tamil Nadu farmers. Answer questions about crops, farming, pest control, soil health, irrigation, and market prices. Be concise and practical. If the question is in Tamil, reply in Tamil. If in English, reply in English. Use bullet points for lists. Keep answers short and farmer-friendly.",
-        messages:[{role:"user",content:q}]
-      })
-    });
-    const data=await res.json();
-    const text=data.content?.map(c=>c.text||'').join('')||'Sorry, could not get an answer.';
-    resp.innerHTML=text.replace(/\n/g,'<br>');
-  }catch(e){
-    resp.innerHTML='Error connecting to AI. Please check your internet and try again.';
-  }
-}
-
-function submitFeedback(){
-  const t=document.getElementById('opinionText').value.trim();
-  if(!t)return;
-  document.getElementById('feedbackMsg').innerHTML='<span style="color:var(--g1);font-weight:500;">நன்றி! Thank you for your feedback.</span>';
-  document.getElementById('opinionText').value='';
-}
-
-renderCrops();
-setTimeout(()=>{
-  animateCount(document.getElementById('sn1'),124,1000);
-  animateCount(document.getElementById('sn2'),18,900);
-  animateCount(document.getElementById('sn3'),6,700);
-},500);
-</script>
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
